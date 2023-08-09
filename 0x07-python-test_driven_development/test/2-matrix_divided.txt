@@ -133,7 +133,7 @@ of different sizes, a new TypeError is raised.
 Invalid Divisors
 ================
 
-The parameter ``div`` should be either an int or float. else, a TypeError
+The parameter ``div`` must be either an int or float. Otherwise, a TypeError
 is raised.
 
 ::
@@ -152,7 +152,7 @@ is raised.
     Traceback (most recent call last):
     TypeError: div must be a number
 
-``div`` must be non-zero. else, a ZeroDivisionError is raised.
+``div`` must also be non-zero. Otherwise, a ZeroDivisionError is raised.
 
 ::
 
