@@ -1,9 +1,19 @@
 #!/usr/bin/node
+
 const fs = require('fs');
-fs.readFile(process.argv[2], 'utf8', function (error, content) {
- if (error) {
-  console.error('Error reading the file', error);
-} else
-  console.log(error || content);
+
+if (process.argv.length !== 3) {
+  console.error('Usage: ./0-readme.js <file-path>');
+  process.exit(1);
 }
+
+const filePath = process.argv[2];
+
+fs.readFile(filePath, 'utf-8', (err, data) => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  } else {
+    console.log(data);
+  }
 });
