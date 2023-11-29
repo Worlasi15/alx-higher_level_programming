@@ -1,4 +1,5 @@
 #!/usr/bin/node
+
 const request = require('request');
 
 const movieId = process.argv[2];
@@ -11,7 +12,7 @@ request.get(apiUrl, (error, response, body) => {
     const movieData = JSON.parse(body);
     const charactersUrls = movieData.characters;
 
-    // Use a promise to handle asynchronous requests
+    // Using a Promise to handle asynchronous requests
     function fetchCharacter(characterUrl) {
       return new Promise((resolve, reject) => {
         request.get(characterUrl, (characterError, characterResponse, characterBody) => {
