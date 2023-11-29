@@ -1,23 +1,5 @@
 #!/usr/bin/node
-const request = require('request');
+#!/usr/bin/node
 const fs = require('fs');
-
-const url = process.argv[2];
-const filePath = process.argv[3];
-
-request.get(url, (error, response, body) => {
-  if (error) {
-    console.error(error);
-  } else {
-    fs.writeFile(filePath, body, 'utf-8', (writeError) => {
-      if (writeError) {
-        console.error(writeError);
-      } else {
-        console.log(`The content has been saved to ${filePath}`);
-      }
-    });
-  }
-});
-.catch((error) => {
-    console.error(error);
-  });
+const request = require('request');
+request(process.argv[2]).pipe(fs.createWriteStream(process.argv[3]));
