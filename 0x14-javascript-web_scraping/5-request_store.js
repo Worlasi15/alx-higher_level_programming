@@ -18,3 +18,6 @@ request.get(url, (error, response, body) => {
     });
   }
 });
+.catch((error) => {
+    console.error(error);
+  });
