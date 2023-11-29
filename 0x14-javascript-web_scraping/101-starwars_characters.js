@@ -11,22 +11,29 @@ request.get(apiUrl, (error, response, body) => {
     const movieData = JSON.parse(body);
     const charactersUrls = movieData.characters;
 
-    // Use a recursive function to handle asynchronous requests
-    function printCharacter(index) {
-      if (index < charactersUrls.length) {
-        request.get(charactersUrls[index], (characterError, characterResponse, characterBody) => {
+    // Use a promise to handle asynchronous requests
+    function fetchCharacter(characterUrl) {
+      return new Promise((resolve, reject) => {
+        request.get(characterUrl, (characterError, characterResponse, characterBody) => {
           if (characterError) {
-            console.error(characterError);
+            reject(characterError);
           } else {
             const characterData = JSON.parse(characterBody);
-            console.log(characterData.name);
-            printCharacter(index + 1);
+            resolve(characterData.name);
           }
         });
-      }
+      });
     }
 
-    // Start printing characters
-    printCharacter(0);
+    // Fetch all characters and print them
+    Promise.all(charactersUrls.map(fetchCharacter))
+      .then((characters) => {
+        characters.forEach((character) => {
+          console.log(character);
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 });
